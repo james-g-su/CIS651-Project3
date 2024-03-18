@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FirebaseIntro</string>
+    <string name="firebase_demo">Firebase Demo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="display_name">Display Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="signup">SIGNUP</string>
+    <string name="login">LOGIN</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="resend_email_verification">Resend Email Verification</string>
+    <string name="_0_likes">0 likes</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC25-x0l0OVNfMTQL1ZtEJxARJqqYYJ2XM</string>
+</resources>
