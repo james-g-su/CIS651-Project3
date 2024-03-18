@@ -138,7 +138,7 @@ public class PhotoPreview extends AppCompatActivity {
         });
     }
     public void Publish(View view){
-        uploadImage();
+        uploadImage();      // Initial failure; references line 101 as well
         finish();
     }
 }
