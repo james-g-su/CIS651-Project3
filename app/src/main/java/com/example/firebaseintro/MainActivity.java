@@ -1,11 +1,11 @@
 package com.example.firebaseintro;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(MainActivity.this, "Please verify your email and login.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, LoginSignup.class));
+                        // startActivity(new Intent(MainActivity.this, LoginSignup.class));
+                        startActivity(new Intent(MainActivity.this, UserHome.class)); // Remove this and uncomment above to require email verification.
                         finish();
                     }
                 }

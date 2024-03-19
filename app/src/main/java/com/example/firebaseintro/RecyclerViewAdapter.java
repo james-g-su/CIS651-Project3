@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,9 +27,6 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,7 +45,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter< RecyclerViewAdapt
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -177,7 +172,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter< RecyclerViewAdapt
                     itemClickListener.onItmeClick(currentMarker.getPosition());
             }
         });
-        // TODO LIST
+
         if(u.uid == currentUser.getUid()){
             holder.deleteBtn.setImageDrawable(ContextCompat.getDrawable(holder.deleteBtn.getContext(), R.drawable.delete_icon_foreground));
             holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -190,10 +185,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter< RecyclerViewAdapt
             });
         }else{
             holder.deleteBtn.setVisibility(View.INVISIBLE);
-            Log.d("User does not have permissions ", u.postKey);
+            //Log.d("User does not have permissions ", u.postKey);
         }
     }
-
     @Override
     public int getItemCount() {
         return keyList.size();
@@ -210,10 +204,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter< RecyclerViewAdapt
         public TextView likeCount;
         DatabaseReference uref;
         ValueEventListener urefListener;
+
         DatabaseReference likeCountRef;
         ValueEventListener likeCountRefListener;
-        DatabaseReference likesRef;
         public ImageView profileImage;
+        DatabaseReference likesRef;
         ValueEventListener likesRefListener;
         public ViewHolder(View v){
             super(v);
@@ -221,7 +216,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter< RecyclerViewAdapt
             email_v = v.findViewById(R.id.email_view);
             phone_v = v.findViewById(R.id.phone_view);
             date_v = v.findViewById(R.id.date_view);
-            description_v=v.findViewById(R.id.description);
+            description_v = v.findViewById(R.id.description);
             profileImage = v.findViewById(R.id.userImage);
             imageView=v.findViewById(R.id.postImg);
             likeBtn=v.findViewById(R.id.likeBtn);

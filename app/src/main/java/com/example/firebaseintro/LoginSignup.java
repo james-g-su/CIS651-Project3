@@ -1,15 +1,14 @@
 package com.example.firebaseintro;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,8 +49,8 @@ public class LoginSignup extends AppCompatActivity {
         DatabaseReference usersRef = database.getReference("Users");
         usersRef.child(currentUser.getUid()).setValue(
                 new User(displayname.getText().toString(),
-                        email.getText().toString(),
-                        phonenumber.getText().toString()));
+                         email.getText().toString(),
+                         phonenumber.getText().toString()));
 
     }
     public void ResetPassword(View view) {
@@ -80,7 +79,7 @@ public class LoginSignup extends AppCompatActivity {
                 .addOnSuccessListener(LoginSignup.this, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(LoginSignup.this, "Verification email Sent!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginSignup.this, "Verification email Setn!", Toast.LENGTH_SHORT).show();
                         updateUI();
                     }
                 }).addOnFailureListener(LoginSignup.this, new OnFailureListener() {
@@ -112,7 +111,10 @@ public class LoginSignup extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(LoginSignup.this, "Please verify your email and login again.", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(LoginSignup.this, "Please verify your email and login again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginSignup.this, UserHome.class));
+                            finish();
                         }
                     }
                 }).addOnFailureListener(this, new OnFailureListener() {

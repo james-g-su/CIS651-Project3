@@ -2,7 +2,7 @@ package com.example.firebaseintro;
 
 import com.google.android.gms.maps.model.Marker;
 
-public class PostModel {
+public class PostModel{
     public String postKey;
     public String uid;
     public String description;

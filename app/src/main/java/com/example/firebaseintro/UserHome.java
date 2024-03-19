@@ -1,19 +1,8 @@
 package com.example.firebaseintro;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -119,6 +118,7 @@ public class UserHome extends AppCompatActivity implements OnMapReadyCallback, I
                     final String postKey = dataSnapshot.getKey();
                     if (key_to_Post.containsKey(postKey))
                         return;
+
                     firestore_db.collection("ImagePosts").document(postKey).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -126,7 +126,7 @@ public class UserHome extends AppCompatActivity implements OnMapReadyCallback, I
                             Marker temp = mMap.addMarker(new MarkerOptions().position(
                                     new LatLng(Double.parseDouble(documentSnapshot.get("lat").toString()),
                                             Double.parseDouble(documentSnapshot.get("lng").toString())))
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey)));
                             PostModel postModel = new PostModel(
                                     documentSnapshot.get("uid").toString(),
                                     documentSnapshot.get("description").toString(),
@@ -146,6 +146,31 @@ public class UserHome extends AppCompatActivity implements OnMapReadyCallback, I
                             Log.e(TAG, e.getMessage());
                         }
                     });
+                    /*
+                    database.getReference("ImagePosts/" + postKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Marker temp = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(dataSnapshot.child("lat").getValue().toString()), Double.parseDouble(dataSnapshot.child("lng").getValue().toString())))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey)));
+                            PostModel postModel = new PostModel(dataSnapshot.child("uid").getValue().toString(),
+                                    dataSnapshot.child("description").getValue().toString(),
+                                    dataSnapshot.child("url").getValue().toString(),
+                                    localDateFormat.format(new Date(Long.parseLong(dataSnapshot.child("timestamp").getValue().toString())))
+                                    , dataSnapshot.getKey(), temp);
+                            key_to_Post.put(postKey, postModel);
+                            keyList.add(postKey);
+                            temp.setTag(dataSnapshot.getKey());
+                            myRecyclerAdapter.notifyItemInserted(keyList.size() - 1);
+                            recyclerView.scrollToPosition(keyList.size() - 1);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    }); */
+
+
                 }
 
                 @Override
@@ -408,7 +433,7 @@ public class UserHome extends AppCompatActivity implements OnMapReadyCallback, I
             }
         });
         if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
